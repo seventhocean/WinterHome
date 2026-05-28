@@ -1,0 +1,7 @@
+services:
+  winterhome:
+    build: .
+    container_name: winterhome
+    ports:
+      - "3001:80"
+    restart: unless-stopped
