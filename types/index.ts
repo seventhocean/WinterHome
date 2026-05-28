@@ -25,6 +25,7 @@ export interface SiteItem {
   url: string
   icon: string
   tag?: string
+  screenshot?: string
 }
 
 /**

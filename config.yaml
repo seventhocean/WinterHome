@@ -67,11 +67,13 @@ sites:
     url: https://winterwait.com
     icon: news-line
     tag: 博客
+    screenshot: /sites/winterwait.png
   - name: Winter·Mail
     description: 个人邮箱网站服务，欢迎试用联系
     url: https://mail.wintermiss.com
     icon: mail-line
     tag: 邮箱
+    screenshot: /sites/wintermail.png
 
 # 项目配置
 projects:

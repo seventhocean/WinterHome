@@ -6,16 +6,21 @@
     </div>
     <div class="sites-grid">
       <a v-for="(site, index) in sites" :key="index" :href="site.url" target="_blank" class="site-card">
-        <div class="site-header">
-          <i v-if="site.icon" :class="`ri-${site.icon}`" class="site-icon"></i>
-          <svg v-else viewBox="0 0 24 24" fill="currentColor" class="site-icon">
-            <path
-              d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 2v14h14V5H5zm2 2h4v4H7V7zm6 0h4v2h-4V7zm0 4h4v2h-4v-2zm-6 2h10v2H7v-2zm0 4h10v2H7v-2z" />
-          </svg>
-          <span class="site-title">{{ site.name }}</span>
-          <span v-if="site.tag" class="site-tag">{{ site.tag }}</span>
+        <div v-if="site.screenshot" class="site-screenshot">
+          <img :src="site.screenshot" :alt="site.name" loading="lazy" />
         </div>
-        <p class="site-description">{{ site.description }}</p>
+        <div class="site-info">
+          <div class="site-header">
+            <i v-if="site.icon" :class="`ri-${site.icon}`" class="site-icon"></i>
+            <svg v-else viewBox="0 0 24 24" fill="currentColor" class="site-icon">
+              <path
+                d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 2v14h14V5H5zm2 2h4v4H7V7zm6 0h4v2h-4V7zm0 4h4v2h-4v-2zm-6 2h10v2H7v-2zm0 4h10v2H7v-2z" />
+            </svg>
+            <span class="site-title">{{ site.name }}</span>
+            <span v-if="site.tag" class="site-tag">{{ site.tag }}</span>
+          </div>
+          <p class="site-description">{{ site.description }}</p>
+        </div>
       </a>
     </div>
   </section>
@@ -55,23 +60,44 @@ defineProps<Props>()
 
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
 .site-card {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
   border: 1px solid var(--menu-border);
   border-radius: 0.75rem;
   background: var(--menu-backdrop);
   text-decoration: none;
   transition: border-color 0.2s;
+  overflow: hidden;
 
   &:hover {
     border-color: var(--toggle-border);
+
+    .site-screenshot img {
+      transform: scale(1.03);
+    }
   }
+}
+
+.site-screenshot {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: transform 0.3s;
+  }
+}
+
+.site-info {
+  padding: 1rem;
 }
 
 .site-header {
@@ -104,7 +130,7 @@ defineProps<Props>()
 }
 
 .site-description {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--nav-color);
   line-height: 1.5;
   display: -webkit-box;
