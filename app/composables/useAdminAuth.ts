@@ -1,6 +1,6 @@
 export const useAdminAuth = () => {
-  const authenticated = ref(false)
-  const loading = ref(true)
+  const authenticated = useState('admin-authenticated', () => false)
+  const loading = useState('admin-loading', () => true)
 
   const checkAuth = async (): Promise<boolean> => {
     try {

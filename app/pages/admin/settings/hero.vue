@@ -98,6 +98,7 @@
         {{ saving ? '保存中...' : '保存' }}
       </button>
       <span v-if="saved" class="success-msg">保存成功</span>
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -146,14 +147,22 @@ const handleUpload = async (e: Event) => {
   }
 }
 
+const error = ref('')
+
 const handleSave = async () => {
   if (!form.value) return
   saving.value = true
   saved.value = false
-  await $fetch('/api/admin/hero', { method: 'PUT', body: form.value })
-  saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+  error.value = ''
+  try {
+    await $fetch('/api/admin/hero', { method: 'PUT', body: form.value })
+    saved.value = true
+    setTimeout(() => { saved.value = false }, 2000)
+  } catch (e: any) {
+    error.value = e?.data?.message || '保存失败'
+  } finally {
+    saving.value = false
+  }
 }
 </script>
 

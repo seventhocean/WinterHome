@@ -20,6 +20,7 @@
         {{ saving ? '保存中...' : '保存' }}
       </button>
       <span v-if="saved" class="success-msg">保存成功</span>
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -35,15 +36,23 @@ onMounted(async () => {
   projects.value = await $fetch<string[]>('/api/admin/projects')
 })
 
+const error = ref('')
+
 const handleSave = async () => {
   saving.value = true
   saved.value = false
+  error.value = ''
   const filtered = projects.value.filter(r => r.trim())
-  await $fetch('/api/admin/projects', { method: 'PUT', body: filtered })
-  projects.value = filtered
-  saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+  try {
+    await $fetch('/api/admin/projects', { method: 'PUT', body: filtered })
+    projects.value = filtered
+    saved.value = true
+    setTimeout(() => { saved.value = false }, 2000)
+  } catch (e: any) {
+    error.value = e?.data?.message || '保存失败'
+  } finally {
+    saving.value = false
+  }
 }
 </script>
 

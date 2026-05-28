@@ -64,6 +64,10 @@ const handleSave = async () => {
     oldPassword.value = ''
     newPassword.value = ''
     confirmPassword.value = ''
+    setTimeout(async () => {
+      await $fetch('/api/admin/logout', { method: 'POST' })
+      navigateTo('/admin/login')
+    }, 2000)
   } catch (e: any) {
     error.value = e?.data?.message || '修改失败'
   } finally {

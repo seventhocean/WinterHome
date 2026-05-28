@@ -25,6 +25,7 @@
         {{ saving ? '保存中...' : '保存' }}
       </button>
       <span v-if="saved" class="success-msg">保存成功</span>
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -41,15 +42,23 @@ onMounted(async () => {
   timeline.value = await $fetch<TimelineEvent[]>('/api/admin/timeline')
 })
 
+const error = ref('')
+
 const handleSave = async () => {
   saving.value = true
   saved.value = false
+  error.value = ''
   const filtered = timeline.value.filter(t => t.title.trim())
-  await $fetch('/api/admin/timeline', { method: 'PUT', body: filtered })
-  timeline.value = filtered
-  saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+  try {
+    await $fetch('/api/admin/timeline', { method: 'PUT', body: filtered })
+    timeline.value = filtered
+    saved.value = true
+    setTimeout(() => { saved.value = false }, 2000)
+  } catch (e: any) {
+    error.value = e?.data?.message || '保存失败'
+  } finally {
+    saving.value = false
+  }
 }
 </script>
 

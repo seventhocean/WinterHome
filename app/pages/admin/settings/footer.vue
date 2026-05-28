@@ -29,6 +29,7 @@
         {{ saving ? '保存中...' : '保存' }}
       </button>
       <span v-if="saved" class="success-msg">保存成功</span>
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -45,16 +46,24 @@ onMounted(async () => {
   form.value = await $fetch<FooterConfig>('/api/admin/footer')
 })
 
+const error = ref('')
+
 const handleSave = async () => {
   if (!form.value) return
   saving.value = true
   saved.value = false
+  error.value = ''
   const filtered = { ...form.value, icp: form.value.icp.filter(i => i.label.trim()) }
-  await $fetch('/api/admin/footer', { method: 'PUT', body: filtered })
-  form.value = filtered
-  saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+  try {
+    await $fetch('/api/admin/footer', { method: 'PUT', body: filtered })
+    form.value = filtered
+    saved.value = true
+    setTimeout(() => { saved.value = false }, 2000)
+  } catch (e: any) {
+    error.value = e?.data?.message || '保存失败'
+  } finally {
+    saving.value = false
+  }
 }
 </script>
 

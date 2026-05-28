@@ -1,0 +1,23 @@
+{
+  "id": "FEAT-002",
+  "type": "fix",
+  "description": "Fix client-side composable and UX issues: (1) useAdminAuth composable doesn't share state across components - use useState instead of ref. (2) No error handling in admin settings save operations. (3) Password change doesn't force re-login. (4) Admin layout not responsive on mobile - needs hamburger menu.",
+  "status": "in_progress",
+  "steps": [
+    "In app/composables/useAdminAuth.ts - replace ref(false) and ref(true) with useState('admin-authenticated', () => false) and useState('admin-loading', () => true). This ensures the middleware and layout share the same reactive state. Import useState from nuxt (auto-imported).",
+    "In all settings pages (hero.vue, site.vue, projects.vue, sites.vue, timeline.vue, footer.vue) - wrap the $fetch call in handleSave with try/catch. Add an 'error' ref (string). On catch, set error.value to a user-friendly message (e.g. e?.data?.message || '保存失败'). Display the error message with class 'error-msg' near the save button. Clear error on next save attempt. The password.vue already has error handling so skip it.",
+    "In app/pages/admin/settings/password.vue - after successful password change (after setting success.value), add a setTimeout that calls the logout function after 2 seconds. Import/use the logout from useAdminAuth(). This redirects the user to login with their new password.",
+    "In app/layouts/admin.vue - make the sidebar responsive for mobile: (a) Add a hamburger toggle button visible only below 768px. (b) On mobile, sidebar should be hidden by default and slide in as an overlay when toggled. (c) Add a backdrop overlay when sidebar is open on mobile. (d) Main content should take full width on mobile (margin-left: 0). Use a ref for sidebarOpen state."
+  ],
+  "acceptance_criteria": [
+    "useAdminAuth uses useState so state is shared across all component instances",
+    "All settings save handlers show error messages on failure",
+    "Password change triggers logout and redirect to login after success",
+    "Admin layout sidebar collapses on mobile with hamburger toggle"
+  ],
+  "verification": [
+    "Run npm run build from /projects/sandbox/WinterHome and confirm no TypeScript/build errors"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

@@ -34,6 +34,7 @@
         {{ saving ? '保存中...' : '保存' }}
       </button>
       <span v-if="saved" class="success-msg">保存成功</span>
+      <p v-if="error" class="error-msg">{{ error }}</p>
     </form>
   </div>
 </template>
@@ -53,15 +54,23 @@ onMounted(async () => {
   keywordsInput.value = data.keywords.join(', ')
 })
 
+const error = ref('')
+
 const handleSave = async () => {
   if (!form.value) return
   saving.value = true
   saved.value = false
+  error.value = ''
   form.value.keywords = keywordsInput.value.split(',').map(s => s.trim()).filter(Boolean)
-  await $fetch('/api/admin/site', { method: 'PUT', body: form.value })
-  saving.value = false
-  saved.value = true
-  setTimeout(() => { saved.value = false }, 2000)
+  try {
+    await $fetch('/api/admin/site', { method: 'PUT', body: form.value })
+    saved.value = true
+    setTimeout(() => { saved.value = false }, 2000)
+  } catch (e: any) {
+    error.value = e?.data?.message || '保存失败'
+  } finally {
+    saving.value = false
+  }
 }
 </script>
 
