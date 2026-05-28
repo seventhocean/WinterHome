@@ -1,0 +1,26 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Fix critical server-side auth and security issues: (1) First deployment cannot login because auth.json doesn't exist and login throws 500. Add auto-initialization with default password 'admin123'. (2) Cookie parsing uses manual implementation instead of h3's getCookie. (3) File upload has no size limit or type validation. (4) Token storage is in-memory only, lost on restart. (5) revokeToken parameter type issue in logout.",
+  "status": "in_progress",
+  "steps": [
+    "In server/utils/auth.ts - modify loadAuth() to auto-initialize auth.json with hashed 'admin123' password when the file doesn't exist. Use hashPassword('admin123') and saveAuth() to persist it. This way first deployment can login with admin123.",
+    "In server/utils/auth.ts - replace the manual parseCookies function and custom getHeader in requireAuth() with h3's getCookie(event, 'wh-admin-token'). Import getCookie from 'h3'.",
+    "In server/utils/auth.ts - persist tokens to app/data/tokens.json instead of in-memory Map. Add loadTokens() and saveTokens() functions. The token store format should be Record<string, number> (hashed token -> expiry). Load tokens from file on first access, save after register/revoke/validate(expired). Clean expired tokens on load.",
+    "In server/api/admin/upload.post.ts - add file size validation (max 5MB = 5 * 1024 * 1024 bytes). Add MIME type validation allowing only: image/jpeg, image/png, image/gif, image/webp, image/svg+xml. Return 400 error with descriptive message if validation fails.",
+    "In server/api/admin/logout.post.ts - add null check for token before calling revokeToken. The getCookie may return undefined, so guard with: if (token) { revokeToken(token) }"
+  ],
+  "acceptance_criteria": [
+    "When auth.json does not exist, loadAuth() creates it with the hash of 'admin123' and returns valid auth data",
+    "requireAuth uses h3's getCookie instead of manual cookie parsing",
+    "Tokens are persisted to app/data/tokens.json and survive server restart",
+    "Upload rejects files larger than 5MB with 400 error",
+    "Upload rejects non-image MIME types with 400 error",
+    "Logout handles undefined token without throwing"
+  ],
+  "verification": [
+    "Run npm run build from /projects/sandbox/WinterHome and confirm no TypeScript/build errors"
+  ],
+  "blocked_reason": null,
+  "findings": ""
+}

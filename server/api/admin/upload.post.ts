@@ -18,6 +18,15 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'No file field found' })
   }
 
+  if (file.data.length > 5 * 1024 * 1024) {
+    throw createError({ statusCode: 400, message: 'File too large, maximum 5MB' })
+  }
+
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
+  if (!file.type || !allowedTypes.includes(file.type)) {
+    throw createError({ statusCode: 400, message: 'Invalid file type, only images allowed' })
+  }
+
   const uploadDir = join(process.cwd(), 'public', 'uploads')
   if (!existsSync(uploadDir)) {
     mkdirSync(uploadDir, { recursive: true })
