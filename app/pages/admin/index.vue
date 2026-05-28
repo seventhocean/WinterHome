@@ -29,6 +29,11 @@
         <h3>时间线</h3>
         <p>管理过往经历</p>
       </NuxtLink>
+      <NuxtLink to="/admin/settings/articles" class="dash-card">
+        <i class="ri-article-line"></i>
+        <h3>文章管理</h3>
+        <p>博客地址、文章 API、RSS、文章列表</p>
+      </NuxtLink>
       <NuxtLink to="/admin/settings/footer" class="dash-card">
         <i class="ri-layout-bottom-line"></i>
         <h3>页脚</h3>

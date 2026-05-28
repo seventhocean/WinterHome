@@ -33,6 +33,10 @@
             <i class="ri-time-line"></i>
             <span>时间线</span>
           </NuxtLink>
+          <NuxtLink to="/admin/settings/articles" class="nav-item" active-class="active" @click="sidebarOpen = false">
+            <i class="ri-article-line"></i>
+            <span>文章管理</span>
+          </NuxtLink>
           <NuxtLink to="/admin/settings/footer" class="nav-item" active-class="active" @click="sidebarOpen = false">
             <i class="ri-layout-bottom-line"></i>
             <span>页脚</span>
