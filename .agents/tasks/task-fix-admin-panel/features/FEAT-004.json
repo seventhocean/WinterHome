@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-004",
+  "type": "fix",
+  "description": "Address semantic review findings: articles page error handling, password composable logout, login dead code removal, upload extension validation, and .gitignore coverage.",
+  "status": "in_progress",
+  "steps": [
+    "Verify app/.gitignore already covers app/data/ (tokens.json and auth.json)",
+    "In articles.vue - wrap onMounted fetch with try/catch, add loadError ref, show error when config is null",
+    "In password.vue - replace raw $fetch logout with composable logout() function",
+    "In login.post.ts - remove dead guard for !auth.salt || !auth.hash",
+    "In upload.post.ts - add file extension validation"
+  ],
+  "acceptance_criteria": [
+    "app/data/ is covered by .gitignore",
+    "articles.vue shows error message if API fetch fails on mount",
+    "password.vue uses composable logout() instead of raw $fetch + navigateTo",
+    "login.post.ts no longer has the dead code guard",
+    "upload.post.ts rejects files with invalid extensions"
+  ],
+  "verification": [
+    "Run npm run build from /projects/sandbox/WinterHome and confirm no TypeScript/build errors"
+  ],
+  "blocked_reason": null,
+  "findings": null
+}

@@ -3,6 +3,8 @@
     <h1 class="page-title">文章管理</h1>
     <p class="page-desc">配置博客地址、文章 API、RSS 源和静态文章列表。</p>
 
+    <p v-if="loadError" class="error-msg">{{ loadError }}</p>
+
     <div class="settings-form" v-if="config">
       <div class="form-group">
         <label>博客地址</label>
@@ -53,9 +55,14 @@ const config = ref<ArticlesConfig | null>(null)
 const saving = ref(false)
 const saved = ref(false)
 const error = ref('')
+const loadError = ref('')
 
 onMounted(async () => {
-  config.value = await $fetch<ArticlesConfig>('/api/admin/articles')
+  try {
+    config.value = await $fetch<ArticlesConfig>('/api/admin/articles')
+  } catch (e: any) {
+    loadError.value = e?.data?.message || '加载文章配置失败'
+  }
 })
 
 const handleSave = async () => {

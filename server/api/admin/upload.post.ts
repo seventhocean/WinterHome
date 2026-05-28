@@ -27,6 +27,13 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, message: 'Invalid file type, only images allowed' })
   }
 
+  const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg']
+  const filename = file.filename || ''
+  const ext = filename.lastIndexOf('.') !== -1 ? filename.slice(filename.lastIndexOf('.')).toLowerCase() : ''
+  if (!ext || !allowedExtensions.includes(ext)) {
+    throw createError({ statusCode: 400, message: 'Invalid file extension, only image files allowed' })
+  }
+
   const uploadDir = join(process.cwd(), 'public', 'uploads')
   if (!existsSync(uploadDir)) {
     mkdirSync(uploadDir, { recursive: true })

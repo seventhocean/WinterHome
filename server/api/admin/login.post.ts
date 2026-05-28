@@ -10,9 +10,6 @@ export default defineEventHandler(async (event) => {
   }
 
   const auth = loadAuth()
-  if (!auth.salt || !auth.hash) {
-    throw createError({ statusCode: 500, message: 'Auth not configured' })
-  }
 
   if (!verifyPassword(password, auth)) {
     throw createError({ statusCode: 401, message: 'Incorrect password' })

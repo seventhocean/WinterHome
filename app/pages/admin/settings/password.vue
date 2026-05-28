@@ -28,6 +28,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'admin' })
 
+const { logout } = useAdminAuth()
+
 const oldPassword = ref('')
 const newPassword = ref('')
 const confirmPassword = ref('')
@@ -64,9 +66,8 @@ const handleSave = async () => {
     oldPassword.value = ''
     newPassword.value = ''
     confirmPassword.value = ''
-    setTimeout(async () => {
-      await $fetch('/api/admin/logout', { method: 'POST' })
-      navigateTo('/admin/login')
+    setTimeout(() => {
+      logout()
     }, 2000)
   } catch (e: any) {
     error.value = e?.data?.message || '修改失败'
