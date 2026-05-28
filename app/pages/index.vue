@@ -93,7 +93,7 @@ onMounted(async () => {
     articlesFromRss.value = false
 
     if (postAPI?.trim()) {
-      const { list, total } = await getArticles(postAPI)
+      const { list, total } = await getArticles(postAPI, 1, 9)
       articles.value = list
       articlesTotal.value = total
     } else if (postRSS?.trim()) {
