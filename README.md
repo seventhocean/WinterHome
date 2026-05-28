@@ -1,7 +1,7 @@
 <div align="center">
   <img src=".github/images/logo.png" alt="TALEN Logo" width="92" height="92" />
 
-  <h1>FlecHome</h1>
+  <h1>WinterHome</h1>
 
   <p>
     一个有质感、不花哨的个人主页展示项目。
@@ -13,13 +13,13 @@
   </p>
 
   <p>
-    <a href="https://talen.top">在线预览</a> /
-    <a href="https://github.com/talen8/FlecHome/issues/new">问题反馈</a> /
+    <a href="https://waitwinter.homes">在线预览</a> /
+    <a href="https://github.com/talen8/WinterHome/issues/new">问题反馈</a> /
     <a href="https://qm.qq.com/q/Zzm9XN6lOi">社群交流</a>
   </p>
 
   <p>
-    <img src="https://img.shields.io/badge/Repo-FlecHome-111111?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACDUlEQVR4nO3XS4iNYRgH8BNRNhYmkctMkpXJSslth1hiKxsbRmqoQU2NjY2J1GwsbGgsSG5FQ0kozMrKQhZqUCbkMsjdT2/znvo6fd93vjnznSPlX2dx3vN/nv//vT3PeyqV//hXgZt4jSEcRjeuYASf42ckjnVHzlCMuV2GgVGNY7QMA5cmYeBiGQb2T8JAT6Oii7E97ufdmqSrsCZFLG1870REZ+MQntSZVRBZW3D8VBHhqTiIj8rHiXriM3FL87A7T3w67jVR/BPm5Bno11yczRPvwNcmG/iG9r81+yr60sRn4I3W4E6agc1ah1dpBo7lBIRq1o4DIbgEA9/TDAznBKxO8NpiW50I3uECBvEstRvieU6C33iAdYlaUdsLshDeDW0JnWnYmWZgrECyn+hKXNkPBWL6I38DtmJK1hX8UnBGwcTKGNNXgB9W70Xi+74sA48j4WGBpMOJnhGeWBPB0SwDVyOhq855qGJLjFuAXXhbIOYl5mUZ6I2kc1has2xpeIpFifjOOmU85OtMFQ/AEvyKScIjZC6uFdjfR9XE4aGRwTuPWZV6ME4MGEyMbcSNKJaFI5HbU3NYL2N9XeEqsDBxtXprfpuPHTiJ+7GgjMXzsjxy9mAA28LZqDQC4zP+EU2cLrR0ZQObEoXpfewTKzKLSJNMdMS/Vcm9v94yAwkjy3A8PsvPlC3wB5cqDes3vUmxAAAAAElFTkSuQmCC&style=flat-square" alt="Repo" />
+    <img src="https://img.shields.io/badge/Repo-WinterHome-111111?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAACDUlEQVR4nO3XS4iNYRgH8BNRNhYmkctMkpXJSslth1hiKxsbRmqoQU2NjY2J1GwsbGgsSG5FQ0kozMrKQhZqUCbkMsjdT2/znvo6fd93vjnznSPlX2dx3vN/nv//vT3PeyqV//hXgZt4jSEcRjeuYASf42ckjnVHzlCMuV2GgVGNY7QMA5cmYeBiGQb2T8JAT6Oii7E97ufdmqSrsCZFLG1870REZ+MQntSZVRBZW3D8VBHhqTiIj8rHiXriM3FL87A7T3w67jVR/BPm5Bno11yczRPvwNcmG/iG9r81+yr60sRn4I3W4E6agc1ah1dpBo7lBIRq1o4DIbgEA9/TDAznBKxO8NpiW50I3uECBvEstRvieU6C33iAdYlaUdsLshDeDW0JnWnYmWZgrECyn+hKXNkPBWL6I38DtmJK1hX8UnBGwcTKGNNXgB9W70Xi+74sA48j4WGBpMOJnhGeWBPB0SwDVyOhq855qGJLjFuAXXhbIOYl5mUZ6I2kc1has2xpeIpFifjOOmU85OtMFQ/AEvyKScIjZC6uFdjfR9XE4aGRwTuPWZV6ME4MGEyMbcSNKJaFI5HbU3NYL2N9XeEqsDBxtXprfpuPHTiJ+7GgjMXzsjxy9mAA28LZqDQC4zP+EU2cLrR0ZQObEoXpfewTKzKLSJNMdMS/Vcm9v94yAwkjy3A8PsvPlC3wB5cqDes3vUmxAAAAAElFTkSuQmCC&style=flat-square" alt="Repo" />
     <img src="https://img.shields.io/badge/Nuxt-4.4.2-00DC82?style=flat-square&logo=nuxt&logoColor=white" alt="Nuxt" />
     <img src="https://img.shields.io/badge/Vue-3.5-4FC08D?style=flat-square&logo=vuedotjs&logoColor=white" alt="Vue 3" />
     <img src="https://img.shields.io/badge/TypeScript-6.0-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
@@ -29,11 +29,11 @@
 
 ## 关于
 
-FlecHome 是一个简洁的个人主页项目，基于 Nuxt 4 静态站点生成（SSG）模式构建。
+WinterHome 是一个简洁的个人主页项目，基于 Nuxt 4 静态站点生成（SSG）模式构建。
 
 把个人简介、项目展示、网站展示、博客文章和时间线整合在一个干净的页面里，让访客能快速了解你。
 
-**为什么选择 FlecHome**
+**为什么选择 WinterHome**
 
 - 静态站点生成，部署简单、加载快速
 - YAML 配置文件，修改配置便捷、集中
@@ -176,7 +176,7 @@ npm run generate
 ## 目录结构
 
 ```
-FlecHome/
+WinterHome/
 ├── app/                    # 应用源码
 │   ├── components/         # Vue 组件
 │   ├── composables/        # 组合式函数
@@ -199,4 +199,4 @@ FlecHome/
 ## 联系方式
 
 - Email: [talen2004@163.com](mailto:talen2004@163.com)
-- Issues: [GitHub Issues](https://github.com/talen8/FlecHome/issues)
+- Issues: [GitHub Issues](https://github.com/talen8/WinterHome/issues)

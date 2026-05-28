@@ -1,0 +1,10 @@
+services:
+  winterhome:
+    build: .
+    container_name: winterhome
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+    volumes:
+      - ./app/data:/app/app/data
+      - ./public/uploads:/app/public/uploads

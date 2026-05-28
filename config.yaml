@@ -1,10 +1,10 @@
 site:
-  title: TALEN
+  title: Winter
   favicon: /favicon.png
-  description: Talen 的个人主页，一个专注技术、乐于探索的代码爱好者！
+  description: Winter 的个人主页，一个专注技术、乐于探索的代码爱好者！
   keywords: [个人主页, 博客, 技术, 生活, 前端开发, Vue, Nuxt, 开源]
-  author: Talen
-  url: https://talen.top
+  author: Winter
+  url: https://waitwinter.homes
 
 # 首页首屏配置
 hero:

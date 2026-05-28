@@ -10,11 +10,17 @@ const RSS2JSON_API_BASE = 'https://rss2json.flec.top'
  */
 export const useApi = () => {
   /**
-   * 加载配置文件
+   * 加载配置文件（优先运行时 JSON，回退到构建时配置）
    */
   const loadConfig = async (): Promise<SiteConfig> => {
-    const config = useRuntimeConfig().public.appConfig as unknown as SiteConfig
-    return config || DEFAULT_SITE_CONFIG
+    try {
+      const response = await $fetch<any>('/api/config', { timeout: 3000 })
+      return response || DEFAULT_SITE_CONFIG
+    } catch {
+      // Fallback to build-time config
+      const config = useRuntimeConfig().public.appConfig as unknown as SiteConfig
+      return config || DEFAULT_SITE_CONFIG
+    }
   }
 
   /**
