@@ -7,9 +7,9 @@
 
     <SectionsSitesSection :sites="sites" />
 
-    <SectionsTimelineSection :events="timeline" />
-
     <SectionsArticlesSection :articles="articles" :blog-url="articlesBlogUrl" :section-title="articlesSectionTitle" :hide-cover="articlesFromRss" />
+
+    <SectionsTimelineSection :events="timeline" />
   </main>
 </template>
 
