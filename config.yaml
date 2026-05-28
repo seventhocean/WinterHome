@@ -62,7 +62,7 @@ articles:
 
 # 网站配置
 sites:
-  - name: Winter
+  - name: 冬天·BLOG
     description: 记录生活感悟与知识，等你来探索
     url: https://winterwait.com
     icon: news-line
@@ -93,7 +93,7 @@ timeline:
     title: Keeper智能运维Agent
     description: 受 Claude code 启发，开发运维智能Agent
     icon: ri-window-line
-  - date: 2026年3月开始
+  - date: 2026年3月
     title: 尝试文章创作
     description: 知乎小红书公众号多个平台，主要以学习笔记类
     icon: ri-article-line
@@ -101,7 +101,4 @@ timeline:
     title: auto_packing
     description: 基于 Flask 开发的补丁包构建与分发工具
     icon: ri-window-line
-  - date: 2023年12月
-    title: 
-    description: 重构为 Nuxt，在原有风格基础上重新设计
-    icon: ri-window-line
+
