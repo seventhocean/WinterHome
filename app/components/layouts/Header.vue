@@ -33,8 +33,8 @@ const siteTitle = config?.site?.title
 const menuItems = [
   { id: 'projects', title: '项目', href: '#projects' },
   { id: 'sites', title: '网站', href: '#sites' },
-  { id: 'timeline', title: '过往', href: '#timeline' },
-  { id: 'articles', title: '文章', href: '#articles' }
+  { id: 'articles', title: '文章', href: '#articles' },
+  { id: 'timeline', title: '过往', href: '#timeline' }
 ] as const
 
 const scrollTo = (id: string): void => {
