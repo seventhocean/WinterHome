@@ -105,17 +105,19 @@ function formatDate(dateStr: string): string {
 .article-card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--menu-border);
+  border: 1px solid var(--card-border);
   border-radius: 0.75rem;
-  background: var(--menu-backdrop);
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
   overflow: hidden;
   text-decoration: none;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 0 var(--card-top-light);
   transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
 
   &:hover {
     border-color: var(--accent-border);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--card-hover-glow), inset 0 1px 0 0 var(--card-top-light);
     transform: translateY(-3px);
   }
 }

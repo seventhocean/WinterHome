@@ -116,14 +116,17 @@ watch(() => props.events, () => nextTick(() => reveal(sectionEl.value)))
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.625rem 0.875rem;
-  background: var(--menu-backdrop);
-  border: 1px solid var(--menu-border);
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  border: 1px solid var(--card-border);
   border-radius: 0.5rem;
-  transition: border-color var(--transition-normal), background-color var(--transition-normal), transform var(--transition-normal);
+  box-shadow: inset 0 1px 0 0 var(--card-top-light);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
 
   &:hover {
     border-color: var(--accent-border);
-    background: var(--accent-soft);
+    box-shadow: var(--card-hover-glow), inset 0 1px 0 0 var(--card-top-light);
     transform: translateX(4px);
   }
 }

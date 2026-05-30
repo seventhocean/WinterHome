@@ -132,6 +132,18 @@ const props = withDefaults(defineProps<Props>(), {
   inset: 0;
   pointer-events: none;
   z-index: 0;
+
+  /* 神秘靛紫光晕（右下），与全局夜空呼应 */
+  &::after {
+    content: "";
+    position: absolute;
+    right: 6%;
+    bottom: 8%;
+    width: 34%;
+    height: 34%;
+    background: radial-gradient(circle, var(--sky-glow-2) 0%, transparent 70%);
+    filter: blur(70px);
+  }
 }
 
 .hero-grid {
@@ -147,13 +159,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 .hero-glow {
   position: absolute;
-  top: 20%;
-  left: 10%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, var(--toggle-border) 0%, transparent 70%);
-  opacity: 0.22;
-  filter: blur(60px);
+  top: 12%;
+  left: 8%;
+  width: 38%;
+  height: 38%;
+  background: radial-gradient(circle, var(--sky-glow-1) 0%, transparent 68%);
+  opacity: 1;
+  filter: blur(70px);
 }
 
 .hero-dots {
@@ -162,9 +174,10 @@ const props = withDefaults(defineProps<Props>(), {
   right: 5%;
   width: 200px;
   height: 200px;
-  background-image: radial-gradient(var(--menu-border) 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.5;
+  background-image: radial-gradient(var(--sky-star-color) 1px, transparent 1px);
+  background-size: 22px 22px;
+  opacity: 0.35;
+  mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
 }
 
 .hero-content {
@@ -227,7 +240,7 @@ const props = withDefaults(defineProps<Props>(), {
   color: var(--nav-hover);
   line-height: 1.1;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, var(--nav-hover) 0%, var(--toggle-border) 100%);
+  background: linear-gradient(120deg, var(--toggle-border) 0%, var(--nav-hover) 52%, var(--accent-violet) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
