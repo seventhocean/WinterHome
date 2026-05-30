@@ -42,7 +42,7 @@ watch(() => props.sites, () => nextTick(() => reveal(sectionEl.value)))
 
 <style lang="scss" scoped>
 .section {
-  padding: 5rem 0;
+  padding: 3.5rem 0;
 }
 
 .section-header {

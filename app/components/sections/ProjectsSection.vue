@@ -98,7 +98,7 @@ function formatRelativeDate(dateStr: string): string {
 
 <style lang="scss" scoped>
 .section {
-  padding: 5rem 0;
+  padding: 3.5rem 0;
 }
 
 .section-header {
