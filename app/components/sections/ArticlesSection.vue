@@ -104,10 +104,13 @@ function formatDate(dateStr: string): string {
   background: var(--menu-backdrop);
   overflow: hidden;
   text-decoration: none;
-  transition: border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
 
   &:hover {
-    border-color: var(--toggle-border);
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
   }
 }
 

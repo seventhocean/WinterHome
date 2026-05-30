@@ -55,7 +55,7 @@ defineProps<Props>()
 
 .sites-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   gap: 1.5rem;
 }
 
@@ -67,10 +67,13 @@ defineProps<Props>()
   border-radius: 0.75rem;
   background: var(--menu-backdrop);
   text-decoration: none;
-  transition: border-color 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
 
   &:hover {
-    border-color: var(--toggle-border);
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
   }
 }
 

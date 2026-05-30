@@ -3,27 +3,39 @@
  * 支持明暗主题切换
  */
 
+/* ===========================================================
+ * 亮色主题 —— 雪后初晴：冷调灰白底、深石板蓝文字、冰川蓝强调
+ * =========================================================== */
 :root {
-  --color-primary: #111827;
-  --color-secondary: #4b5563;
-  --color-muted: #9ca3af;
-  --color-accent: #374151;
-  
-  --bg-primary: #ffffff;
+  color-scheme: light;
+
+  /* 冬季强调色（冰川/霜蓝） */
+  --accent: #2f6f96;
+  --accent-strong: #245a7c;
+  --accent-contrast: #ffffff;
+  --accent-soft: rgba(47, 111, 150, 0.08);
+  --accent-border: rgba(47, 111, 150, 0.32);
+
+  --color-primary: #16202e;
+  --color-secondary: #4a5a6e;
+  --color-muted: #94a3b8;
+  --color-accent: #2f6f96;
+
+  --bg-primary: #eef2f7;
   --bg-secondary: rgba(255, 255, 255, 0.8);
   --bg-tertiary: rgba(255, 255, 255, 0.9);
-  
-  --border-primary: #e5e7eb;
-  --border-secondary: #d1d5db;
-  --border-accent: #4b5563;
-  
-  --text-primary: #111827;
-  --text-secondary: #4b5563;
-  --text-muted: #9ca3af;
-  
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+  --border-primary: #dbe3ee;
+  --border-secondary: #c6d2e1;
+  --border-accent: #2f6f96;
+
+  --text-primary: #16202e;
+  --text-secondary: #4a5a6e;
+  --text-muted: #8595a8;
+
+  --shadow-sm: 0 1px 2px 0 rgba(20, 40, 70, 0.06);
+  --shadow-md: 0 6px 18px -6px rgba(20, 40, 70, 0.14);
+  --shadow-lg: 0 22px 48px -16px rgba(20, 40, 70, 0.20);
   
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
@@ -36,50 +48,66 @@
   --transition-normal: 200ms ease-out;
   --transition-slow: 300ms ease-out;
   
-  --header-bg: rgba(255, 255, 255, 0.8);
-  --header-border: #e5e7eb;
-  --logo-color: #000;
-  --nav-color: #4b5563;
-  --nav-hover: #111827;
+  --header-bg: rgba(238, 242, 247, 0.72);
+  --header-border: #dbe3ee;
+  --logo-color: #16202e;
+  --nav-color: #4a5a6e;
+  --nav-hover: #16202e;
   --menu-bg: rgba(255, 255, 255, 0.9);
-  --menu-backdrop: #fff;
-  --menu-border: #d1d5db;
-  --toggle-color: #1f2937;
-  --toggle-hover: #111827;
-  --toggle-icon: #374151;
-  --toggle-border: #4b5563;
+  --menu-backdrop: #ffffff;
+  --menu-border: #dbe3ee;
+  --toggle-color: #243244;
+  --toggle-hover: #16202e;
+  --toggle-icon: #5b6b80;
+  --toggle-border: #2f6f96;
 }
 
+/* ===========================================================
+ * 暗色主题（默认）—— 午夜冬夜：深蓝黑底、霜白文字、霜蓝强调
+ * =========================================================== */
 [data-theme="dark"] {
-  --color-primary: #ffffff;
-  --color-secondary: #9ca3af;
-  --color-muted: #6b7280;
-  --color-accent: #e5e7eb;
+  color-scheme: dark;
+
+  /* 冬季强调色（霜蓝，于深色上更明亮） */
+  --accent: #8fbfdd;
+  --accent-strong: #abd6ee;
+  --accent-contrast: #0a0e16;
+  --accent-soft: rgba(143, 191, 221, 0.12);
+  --accent-border: rgba(143, 191, 221, 0.40);
+
+  --color-primary: #eaf2f9;
+  --color-secondary: #9fb0c3;
+  --color-muted: #61708a;
+  --color-accent: #8fbfdd;
   
-  --bg-primary: #0a0a0a;
-  --bg-secondary: rgba(10, 10, 10, 0.8);
-  --bg-tertiary: rgba(10, 10, 10, 0.9);
+  --bg-primary: #0a0e16;
+  --bg-secondary: rgba(10, 14, 22, 0.8);
+  --bg-tertiary: rgba(10, 14, 22, 0.9);
   
-  --border-primary: #374151;
-  --border-secondary: #4b5563;
-  --border-accent: #6b7280;
+  --border-primary: #1f2a3a;
+  --border-secondary: #2b3a4f;
+  --border-accent: #8fbfdd;
   
-  --text-primary: #ffffff;
-  --text-secondary: #9ca3af;
-  --text-muted: #6b7280;
+  --text-primary: #eaf2f9;
+  --text-secondary: #9fb0c3;
+  --text-muted: #61708a;
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.45);
+  --shadow-md: 0 8px 22px -8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 24px 50px -18px rgba(0, 0, 0, 0.72);
   
-  --header-bg: rgba(10, 10, 10, 0.8);
-  --header-border: #374151;
-  --logo-color: #fff;
-  --nav-color: #9ca3af;
-  --nav-hover: #fff;
-  --menu-bg: rgba(10, 10, 10, 0.9);
-  --menu-backdrop: #0a0a0a;
-  --menu-border: #374151;
-  --toggle-color: #e5e7eb;
-  --toggle-hover: #fff;
-  --toggle-icon: #e5e7eb;
-  --toggle-border: #4b5563;
+  --header-bg: rgba(13, 18, 28, 0.72);
+  --header-border: #1c2735;
+  --logo-color: #eaf2f9;
+  --nav-color: #9fb0c3;
+  --nav-hover: #eaf2f9;
+  --menu-bg: rgba(13, 18, 28, 0.9);
+  --menu-backdrop: #11161f;
+  --menu-border: #202c3c;
+  --toggle-color: #cdd8e4;
+  --toggle-hover: #eaf2f9;
+  --toggle-icon: #8595a8;
+  --toggle-border: #8fbfdd;
 }
 
 /**
@@ -113,6 +141,7 @@ body {
   background-color: var(--bg-primary);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition-slow), color var(--transition-slow);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -159,8 +188,8 @@ input, textarea, select {
 }
 
 ::selection {
-  background-color: var(--color-primary);
-  color: var(--bg-primary);
+  background-color: var(--accent);
+  color: var(--accent-contrast);
 }
 
 ::-webkit-scrollbar {

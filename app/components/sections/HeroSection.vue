@@ -152,7 +152,7 @@ const props = withDefaults(defineProps<Props>(), {
   width: 40%;
   height: 40%;
   background: radial-gradient(circle, var(--toggle-border) 0%, transparent 70%);
-  opacity: 0.15;
+  opacity: 0.22;
   filter: blur(60px);
 }
 
@@ -191,8 +191,9 @@ const props = withDefaults(defineProps<Props>(), {
 .badge-dot {
   width: 6px;
   height: 6px;
-  background: #22c55e;
+  background: var(--accent);
   border-radius: 50%;
+  box-shadow: 0 0 6px 0 var(--accent);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -279,7 +280,9 @@ const props = withDefaults(defineProps<Props>(), {
   transition: all 200ms ease-out;
 
   &:hover {
-    border-color: var(--toggle-border);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    transform: translateY(-2px);
   }
 }
 

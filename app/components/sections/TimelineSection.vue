@@ -113,10 +113,12 @@ defineProps<Props>()
   background: var(--menu-backdrop);
   border: 1px solid var(--menu-border);
   border-radius: 0.5rem;
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-normal), background-color var(--transition-normal), transform var(--transition-normal);
 
   &:hover {
-    border-color: var(--toggle-border);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    transform: translateX(4px);
   }
 }
 
