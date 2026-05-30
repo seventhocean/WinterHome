@@ -10,7 +10,7 @@ site:
 hero:
   badgeText: 正在前进
   descriptions:
-    - 我是冬天，一个喜欢把复杂的东西讲清楚的人。
+    - 一个喜欢把复杂的东西讲清楚的人。
     - 写代码，做产品，也写文章。
     - AI · 云计算 · 自由 · 专注 · 享受生活
   skills:
@@ -89,6 +89,14 @@ projects:
 
 # 时间线配置
 timeline:
+  - date: 2026年5月
+    title: Winter 个人首页美化 
+    description: 设计语言为——“冬日夜晚走进那一盏温暖的窗”
+    icon: ri-moon-line
+  - date: 2026年5月
+    title: Rainbow 相册改造为 Flower 相册 
+    description: 由个人美化相机定位变为模板仓库 + AI生图平台
+    icon: ri-image-line
   - date: 2026年5月
     title: 搭建个人博客平台
     description: 基于 【FlecBlog】 搭建了属于自己的个人博客
