@@ -60,10 +60,13 @@ interface Props {
   projects: GithubRepo[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const sectionEl = ref<HTMLElement | null>(null)
 const { reveal } = useScrollReveal()
+
+onMounted(() => nextTick(() => reveal(sectionEl.value)))
+watch(() => props.projects, () => nextTick(() => reveal(sectionEl.value)))
 onMounted(() => reveal(sectionEl.value))
 
 const githubUrl = 'https://github.com/flechazo'
