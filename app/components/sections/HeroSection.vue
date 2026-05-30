@@ -348,17 +348,17 @@ const props = withDefaults(defineProps<Props>(), {
   font-weight: 600;
   text-decoration: none;
   border-radius: 9999px;
-  border: 1px solid var(--warm);
-  background-color: var(--warm);
+  border: 1px solid var(--warm-deep);
+  background-color: var(--warm-deep);
   color: var(--warm-contrast);
-  box-shadow: 0 0 18px -4px rgba(245, 166, 35, 0.5);
+  box-shadow: 0 0 12px -6px rgba(245, 166, 35, 0.32);
   transition: all 300ms ease-out;
 
   &:hover {
-    border-color: var(--warm-soft);
-    background-color: var(--warm-soft);
+    border-color: var(--warm);
+    background-color: var(--warm);
     color: var(--warm-contrast);
-    box-shadow: 0 0 28px -2px rgba(245, 166, 35, 0.7);
+    box-shadow: 0 0 26px -3px rgba(245, 166, 35, 0.6);
     transform: translateY(-1px);
   }
 }
@@ -401,17 +401,6 @@ const props = withDefaults(defineProps<Props>(), {
   position: relative;
   width: 100%;
   max-width: 28rem;
-
-  /* 暖窗：头像背后透出的昏黄灯光 */
-  &::before {
-    content: "";
-    position: absolute;
-    inset: -16% -12% -8% -12%;
-    background: radial-gradient(circle at 50% 42%, rgba(245, 166, 35, 0.30) 0%, rgba(242, 180, 92, 0.14) 38%, transparent 70%);
-    filter: blur(34px);
-    z-index: 0;
-    pointer-events: none;
-  }
 }
 
 .photo-frame {
