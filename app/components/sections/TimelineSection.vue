@@ -11,7 +11,7 @@
         <div class="timeline-dot">
           <i :class="event.icon || 'ri-star-line'" aria-hidden="true"></i>
         </div>
-        <div class="timeline-content">
+        <div class="timeline-content" v-spotlight :class="'spotlight'">
           <h3 class="timeline-title">{{ event.title }}</h3>
           <span v-if="event.description" class="timeline-description">· {{ event.description }}</span>
         </div>

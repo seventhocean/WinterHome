@@ -6,7 +6,7 @@
     </div>
     <div v-if="articles.length > 0" class="articles-grid reveal-stagger">
       <a v-for="article in articles" :key="article.id" :href="toArticleUrl(article.url)" target="_blank"
-        rel="noopener noreferrer" class="article-card reveal">
+        rel="noopener noreferrer" v-spotlight class="article-card reveal spotlight">
         <div v-if="!hideCover" class="article-cover">
           <img :src="article.cover" :alt="article.title" loading="lazy" />
         </div>
@@ -228,8 +228,9 @@ function formatDate(dateStr: string): string {
   transition: all 200ms ease-out;
 
   &:hover {
-    border-color: var(--toggle-border);
-    color: var(--nav-hover);
+    border-color: var(--warm-border);
+    color: var(--warm);
+    box-shadow: 0 0 18px -6px rgba(245, 166, 35, 0.42);
   }
 }
 

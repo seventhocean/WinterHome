@@ -4,6 +4,9 @@
       <div class="hero-grid"></div>
       <div class="hero-glow"></div>
       <div class="hero-dots"></div>
+      <div class="hero-windows">
+        <span></span><span></span><span></span><span></span>
+      </div>
     </div>
 
     <div class="hero-content">
@@ -180,12 +183,56 @@ const props = withDefaults(defineProps<Props>(), {
   mask-image: radial-gradient(circle at center, black 30%, transparent 75%);
 }
 
+/* 远处的窗：雪原对面零星亮着灯的暖色光点 */
+.hero-windows {
+  position: absolute;
+  inset: 0;
+
+  span {
+    position: absolute;
+    width: 3px;
+    height: 4px;
+    border-radius: 1px;
+    background: var(--warm);
+    box-shadow: 0 0 7px 1px rgba(245, 166, 35, 0.55);
+  }
+
+  span:nth-child(1) {
+    left: 13%;
+    top: 63%;
+    opacity: 0.5;
+  }
+
+  span:nth-child(2) {
+    left: 19%;
+    top: 67%;
+    width: 2px;
+    height: 3px;
+    opacity: 0.34;
+  }
+
+  span:nth-child(3) {
+    left: 27%;
+    top: 64.5%;
+    width: 2px;
+    height: 3px;
+    opacity: 0.4;
+  }
+
+  span:nth-child(4) {
+    left: 33%;
+    top: 69%;
+    opacity: 0.28;
+  }
+}
+
 .hero-content {
   position: relative;
   z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
+  animation: hero-enter 0.8s ease-out both;
 }
 
 .hero-badge {
@@ -207,7 +254,7 @@ const props = withDefaults(defineProps<Props>(), {
   background: var(--warm);
   border-radius: 50%;
   box-shadow: 0 0 8px 1px var(--warm-soft);
-  animation: pulse 2s ease-in-out infinite;
+  animation: pulse 2s ease-in-out infinite, warm-arrive 1.1s ease-out 0.4s both;
 }
 
 @keyframes pulse {
@@ -353,6 +400,7 @@ const props = withDefaults(defineProps<Props>(), {
   color: var(--warm-contrast);
   box-shadow: 0 0 12px -6px rgba(245, 166, 35, 0.32);
   transition: all 300ms ease-out;
+  animation: warm-arrive 1.2s ease-out 0.35s both;
 
   &:hover {
     border-color: var(--warm);
@@ -384,8 +432,9 @@ const props = withDefaults(defineProps<Props>(), {
   }
 
   &:hover {
-    color: var(--nav-hover);
+    color: var(--warm);
     background: var(--header-bg);
+    box-shadow: 0 0 16px -5px rgba(245, 166, 35, 0.45);
   }
 }
 
@@ -395,6 +444,7 @@ const props = withDefaults(defineProps<Props>(), {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: hero-enter 0.8s ease-out 0.12s both;
 }
 
 .photo-container {
@@ -453,15 +503,15 @@ const props = withDefaults(defineProps<Props>(), {
   width: 3rem;
   height: 3rem;
   background: var(--menu-backdrop);
-  border: 1px solid var(--menu-border);
+  border: 1px solid rgba(245, 166, 35, 0.38);
   border-radius: 0.75rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 16px -3px rgba(245, 166, 35, 0.5);
   z-index: 10;
   animation: float 4s ease-in-out infinite;
 
   i {
     font-size: 1.25rem;
-    color: var(--nav-hover);
+    color: var(--warm);
   }
 }
 
@@ -492,6 +542,30 @@ const props = withDefaults(defineProps<Props>(), {
 
   50% {
     transform: translateY(-10px);
+  }
+}
+
+/* 开门入场：内容轻柔升起 */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 灯火点亮：从暗到暖（门 / 呼吸灯一次性） */
+@keyframes warm-arrive {
+  from {
+    filter: brightness(0.4) saturate(0.5);
+  }
+
+  to {
+    filter: brightness(1) saturate(1);
   }
 }
 

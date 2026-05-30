@@ -16,7 +16,7 @@
       </nav>
 
       <div class="header-actions">
-        <button class="icon-btn" @click="toggleTheme" :aria-label="isDark ? '切换到亮色模式' : '切换到暗色模式'">
+        <button class="icon-btn theme-toggle" :class="{ spinning: themeSpinning }" @click="onToggleTheme" :aria-label="isDark ? '切换到亮色模式' : '切换到暗色模式'">
           <svg v-if="isDark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5" />
             <path
@@ -49,6 +49,13 @@ const siteTitle = config?.site?.title
 
 const mobileOpen = ref(false)
 const activeSection = ref('')
+const themeSpinning = ref(false)
+
+const onToggleTheme = (): void => {
+  themeSpinning.value = true
+  toggleTheme()
+  window.setTimeout(() => { themeSpinning.value = false }, 500)
+}
 
 const menuItems = [
   { id: 'projects', title: '项目', href: '#projects' },
@@ -180,6 +187,15 @@ header {
 
 .hamburger {
   display: none;
+}
+
+/* 主题切换：点击时图标旋转的小仪式感 */
+.theme-toggle svg {
+  transition: transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.theme-toggle.spinning svg {
+  transform: rotate(180deg);
 }
 
 /* Mobile */

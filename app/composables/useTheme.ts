@@ -28,12 +28,16 @@ export const useTheme = () => {
 
   /**
    * 切换主题
+   * 切换瞬间给根节点加 .theme-transition，实现昼夜更替的柔和过渡
    */
   const toggleTheme = (): void => {
     isDark.value = !isDark.value
 
     if (import.meta.client) {
       localStorage.setItem('theme', isDark.value ? 'dark' : 'light')
+      const root = document.documentElement
+      root.classList.add('theme-transition')
+      window.setTimeout(() => root.classList.remove('theme-transition'), 650)
       applyTheme()
     }
   }

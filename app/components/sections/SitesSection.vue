@@ -5,7 +5,7 @@
       <p class="section-desc">精心雕琢的数字空间</p>
     </div>
     <div class="sites-grid reveal-stagger">
-      <a v-for="(site, index) in sites" :key="index" :href="site.url" target="_blank" class="site-card reveal">
+      <a v-for="(site, index) in sites" :key="index" :href="site.url" target="_blank" v-spotlight class="site-card reveal spotlight">
         <div v-if="site.screenshot" class="site-screenshot">
           <img :src="site.screenshot" :alt="site.name" loading="lazy" />
         </div>

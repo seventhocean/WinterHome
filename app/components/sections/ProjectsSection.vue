@@ -5,7 +5,7 @@
       <p class="section-desc">用心打造的开源作品</p>
     </div>
     <div v-if="projects.length > 0" class="projects-grid reveal-stagger">
-      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" class="project-card reveal">
+      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" v-spotlight class="project-card reveal spotlight">
         <div class="project-header">
           <svg viewBox="0 0 16 16" fill="currentColor" class="project-icon">
             <path
@@ -67,7 +67,6 @@ const { reveal } = useScrollReveal()
 
 onMounted(() => nextTick(() => reveal(sectionEl.value)))
 watch(() => props.projects, () => nextTick(() => reveal(sectionEl.value)))
-onMounted(() => reveal(sectionEl.value))
 
 const githubUrl = 'https://github.com/flechazo'
 
@@ -230,8 +229,9 @@ function formatRelativeDate(dateStr: string): string {
   transition: all 200ms ease-out;
 
   &:hover {
-    border-color: var(--toggle-border);
-    color: var(--nav-hover);
+    border-color: var(--warm-border);
+    color: var(--warm);
+    box-shadow: 0 0 18px -6px rgba(245, 166, 35, 0.42);
   }
 }
 

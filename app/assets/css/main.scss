@@ -327,3 +327,43 @@ input, textarea, select {
     animation-iteration-count: 1 !important;
   }
 }
+
+
+/* ============================================================
+ * 卡片迎光：暖光随指针在霜玻璃上游走（v-spotlight 写入坐标）
+ * ============================================================ */
+.spotlight {
+  position: relative;
+}
+
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    220px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(245, 166, 35, 0.16),
+    rgba(242, 180, 92, 0.07) 42%,
+    transparent 66%
+  );
+  opacity: 0;
+  transition: opacity 350ms ease-out;
+  z-index: 2;
+}
+
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+/* ============================================================
+ * 主题切换：昼夜更替的柔和过渡（仅在切换瞬间启用，不影响日常交互）
+ * ============================================================ */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition: background-color 0.6s ease, border-color 0.6s ease,
+    color 0.6s ease, box-shadow 0.6s ease, fill 0.6s ease !important;
+}
