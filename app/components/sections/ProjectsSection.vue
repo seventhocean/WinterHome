@@ -1,11 +1,11 @@
 <template>
-  <section id="projects" class="section">
-    <div class="section-header">
+  <section id="projects" class="section" ref="sectionEl">
+    <div class="section-header reveal">
       <h2 class="section-title">精选项目</h2>
       <p class="section-desc">用心打造的开源作品</p>
     </div>
-    <div v-if="projects.length > 0" class="projects-grid">
-      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" class="project-card">
+    <div v-if="projects.length > 0" class="projects-grid reveal-stagger">
+      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" class="project-card reveal">
         <div class="project-header">
           <svg viewBox="0 0 16 16" fill="currentColor" class="project-icon">
             <path
@@ -61,6 +61,10 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const sectionEl = ref<HTMLElement | null>(null)
+const { reveal } = useScrollReveal()
+onMounted(() => reveal(sectionEl.value))
 
 const githubUrl = 'https://github.com/flechazo'
 

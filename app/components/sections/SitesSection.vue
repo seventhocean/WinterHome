@@ -1,11 +1,11 @@
 <template>
-  <section id="sites" class="section">
-    <div class="section-header">
+  <section id="sites" class="section" ref="sectionEl">
+    <div class="section-header reveal">
       <h2 class="section-title">上线网站</h2>
       <p class="section-desc">精心雕琢的数字空间</p>
     </div>
-    <div class="sites-grid">
-      <a v-for="(site, index) in sites" :key="index" :href="site.url" target="_blank" class="site-card">
+    <div class="sites-grid reveal-stagger">
+      <a v-for="(site, index) in sites" :key="index" :href="site.url" target="_blank" class="site-card reveal">
         <div class="site-header">
           <i v-if="site.icon" :class="`ri-${site.icon}`" class="site-icon"></i>
           <svg v-else viewBox="0 0 24 24" fill="currentColor" class="site-icon">
@@ -29,6 +29,10 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const sectionEl = ref<HTMLElement | null>(null)
+const { reveal } = useScrollReveal()
+onMounted(() => reveal(sectionEl.value))
 </script>
 
 <style lang="scss" scoped>

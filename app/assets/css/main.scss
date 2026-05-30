@@ -209,3 +209,27 @@ input, textarea, select {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-muted);
 }
+
+/* ============================================================
+ * 滚动渐入动效
+ * 给元素加 .reveal 类即可；进入视口时自动变为 .revealed
+ * ============================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 支持子元素逐个延迟 —— 卡片序列 */
+.reveal-stagger > .reveal {
+  @for $i from 1 through 12 {
+    &:nth-child(#{$i}) {
+      transition-delay: #{($i - 1) * 60}ms;
+    }
+  }
+}

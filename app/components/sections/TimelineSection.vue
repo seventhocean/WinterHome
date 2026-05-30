@@ -1,12 +1,12 @@
 <template>
-  <section id="timeline" class="section">
-    <div class="section-header">
+  <section id="timeline" class="section" ref="sectionEl">
+    <div class="section-header reveal">
       <h2 class="section-title">经历过往</h2>
       <p class="section-desc">记录成长路上的重要时刻</p>
     </div>
 
-    <div class="timeline-container">
-      <div v-for="(event, index) in events" :key="index" class="timeline-item">
+    <div class="timeline-container reveal-stagger">
+      <div v-for="(event, index) in events" :key="index" class="timeline-item reveal">
         <span class="timeline-date">{{ event.date }}</span>
         <div class="timeline-dot">
           <i :class="event.icon || 'ri-star-line'" aria-hidden="true"></i>
@@ -28,6 +28,10 @@ interface Props {
 }
 
 defineProps<Props>()
+
+const sectionEl = ref<HTMLElement | null>(null)
+const { reveal } = useScrollReveal()
+onMounted(() => reveal(sectionEl.value))
 </script>
 
 <style lang="scss" scoped>

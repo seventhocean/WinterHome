@@ -1,12 +1,12 @@
 <template>
-  <section id="articles" class="section">
-    <div class="section-header">
+  <section id="articles" class="section" ref="sectionEl">
+    <div class="section-header reveal">
       <h2 class="section-title">{{ sectionTitle }}</h2>
       <p class="section-desc">思想的羽翼，心灵的絮语</p>
     </div>
-    <div v-if="articles.length > 0" class="articles-grid">
+    <div v-if="articles.length > 0" class="articles-grid reveal-stagger">
       <a v-for="article in articles" :key="article.id" :href="toArticleUrl(article.url)" target="_blank"
-        rel="noopener noreferrer" class="article-card">
+        rel="noopener noreferrer" class="article-card reveal">
         <div v-if="!hideCover" class="article-cover">
           <img :src="article.cover" :alt="article.title" loading="lazy" />
         </div>
@@ -46,6 +46,10 @@ const props = withDefaults(defineProps<Props>(), {
   sectionTitle: '近期文章',
   hideCover: false
 })
+
+const sectionEl = ref<HTMLElement | null>(null)
+const { reveal } = useScrollReveal()
+onMounted(() => reveal(sectionEl.value))
 
 const toArticleUrl = (articleUrl: string): string => {
   if (articleUrl.startsWith('http://') || articleUrl.startsWith('https://') || articleUrl.startsWith('mailto:')) {

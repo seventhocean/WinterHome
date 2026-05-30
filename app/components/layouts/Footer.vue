@@ -32,12 +32,12 @@ const recordItems = config?.footer?.icp ?? ([] as FooterRecordItem[])
 <style lang="scss" scoped>
 .footer {
   border-top: 1px solid var(--header-border);
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .footer-column {
   margin: 0 auto;
-  max-width: 80rem;
+  max-width: 72rem;
   display: flex;
   overflow: hidden;
   width: 100%;
