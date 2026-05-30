@@ -122,10 +122,10 @@ watch(() => props.events, () => nextTick(() => reveal(sectionEl.value)))
   border: 1px solid var(--card-border);
   border-radius: 0.5rem;
   box-shadow: inset 0 1px 0 0 var(--card-top-light);
-  transition: border-color var(--transition-normal), box-shadow var(--transition-normal), transform var(--transition-normal);
+  transition: border-color 350ms ease-out, box-shadow 350ms ease-out, transform var(--transition-normal);
 
   &:hover {
-    border-color: var(--accent-border);
+    border-color: var(--warm-border);
     box-shadow: var(--card-hover-glow), inset 0 1px 0 0 var(--card-top-light);
     transform: translateX(4px);
   }

@@ -69,13 +69,20 @@
   --sky-vignette: rgba(180, 200, 225, 0);
   --sky-star-opacity: 0;
   --sky-star-color: rgba(120, 150, 190, 0.5);
+  --snow-color: rgba(150, 170, 200, 0.85);
+
+  /* 暖光：昏黄琥珀（仅用于 hover / 窗 / 门 / 呼吸灯） */
+  --warm: #F5A623;
+  --warm-soft: #F2B45C;
+  --warm-contrast: #2a1c08;
+  --warm-border: rgba(245, 166, 35, 0.5);
 
   /* 卡片（亮色为干净白面） */
   --card-bg: linear-gradient(180deg, #ffffff 0%, #f7fafd 100%);
   --card-border: #dbe3ee;
   --card-blur: none;
   --card-top-light: rgba(255, 255, 255, 0.9);
-  --card-hover-glow: 0 16px 36px -14px rgba(40, 80, 130, 0.22);
+  --card-hover-glow: 0 16px 36px -14px rgba(40, 80, 130, 0.16), 0 0 22px -6px rgba(245, 166, 35, 0.32), 0 0 8px -2px rgba(242, 180, 92, 0.42);
 }
 
 /* ===========================================================
@@ -133,13 +140,20 @@
   --sky-vignette: rgba(3, 5, 11, 0.55);
   --sky-star-opacity: 1;
   --sky-star-color: rgba(196, 216, 242, 0.85);
+  --snow-color: rgba(235, 242, 251, 0.92);
+
+  /* 暖光：昏黄琥珀（仅用于 hover / 窗 / 门 / 呼吸灯） */
+  --warm: #F5A623;
+  --warm-soft: #F2B45C;
+  --warm-contrast: #2a1c08;
+  --warm-border: rgba(245, 166, 35, 0.55);
 
   /* 玻璃拟态卡片 */
   --card-bg: linear-gradient(180deg, rgba(28, 39, 70, 0.55) 0%, rgba(13, 19, 38, 0.62) 100%);
   --card-border: rgba(125, 165, 220, 0.16);
   --card-blur: blur(10px);
   --card-top-light: rgba(160, 200, 240, 0.14);
-  --card-hover-glow: 0 16px 40px -14px rgba(0, 0, 0, 0.7), 0 0 26px -8px rgba(120, 170, 224, 0.42);
+  --card-hover-glow: 0 18px 44px -14px rgba(0, 0, 0, 0.72), 0 0 30px -6px rgba(245, 166, 35, 0.40), 0 0 10px -2px rgba(242, 180, 92, 0.55);
 }
 
 /**

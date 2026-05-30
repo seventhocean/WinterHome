@@ -78,11 +78,11 @@ watch(() => props.sites, () => nextTick(() => reveal(sectionEl.value)))
   -webkit-backdrop-filter: var(--card-blur);
   text-decoration: none;
   box-shadow: var(--shadow-sm), inset 0 1px 0 0 var(--card-top-light);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+  transition: transform var(--transition-normal), box-shadow 350ms ease-out, border-color 350ms ease-out;
   overflow: hidden;
 
   &:hover {
-    border-color: var(--accent-border);
+    border-color: var(--warm-border);
     box-shadow: var(--card-hover-glow), inset 0 1px 0 0 var(--card-top-light);
     transform: translateY(-3px);
 

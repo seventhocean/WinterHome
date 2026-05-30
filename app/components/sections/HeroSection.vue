@@ -204,9 +204,9 @@ const props = withDefaults(defineProps<Props>(), {
 .badge-dot {
   width: 6px;
   height: 6px;
-  background: var(--accent);
+  background: var(--warm);
   border-radius: 50%;
-  box-shadow: 0 0 6px 0 var(--accent);
+  box-shadow: 0 0 8px 1px var(--warm-soft);
   animation: pulse 2s ease-in-out infinite;
 }
 
@@ -348,15 +348,18 @@ const props = withDefaults(defineProps<Props>(), {
   font-weight: 600;
   text-decoration: none;
   border-radius: 9999px;
-  border: 1px solid var(--nav-hover);
-  background-color: var(--nav-hover);
-  color: var(--menu-backdrop);
-  transition: all 200ms ease-out;
+  border: 1px solid var(--warm);
+  background-color: var(--warm);
+  color: var(--warm-contrast);
+  box-shadow: 0 0 18px -4px rgba(245, 166, 35, 0.5);
+  transition: all 300ms ease-out;
 
   &:hover {
-    border-color: var(--toggle-border);
-    background-color: var(--menu-backdrop);
-    color: var(--nav-hover);
+    border-color: var(--warm-soft);
+    background-color: var(--warm-soft);
+    color: var(--warm-contrast);
+    box-shadow: 0 0 28px -2px rgba(245, 166, 35, 0.7);
+    transform: translateY(-1px);
   }
 }
 
@@ -398,6 +401,17 @@ const props = withDefaults(defineProps<Props>(), {
   position: relative;
   width: 100%;
   max-width: 28rem;
+
+  /* 暖窗：头像背后透出的昏黄灯光 */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -16% -12% -8% -12%;
+    background: radial-gradient(circle at 50% 42%, rgba(245, 166, 35, 0.30) 0%, rgba(242, 180, 92, 0.14) 38%, transparent 70%);
+    filter: blur(34px);
+    z-index: 0;
+    pointer-events: none;
+  }
 }
 
 .photo-frame {
