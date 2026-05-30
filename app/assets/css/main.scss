@@ -150,10 +150,10 @@
   --warm-contrast: #2a1c08;
   --warm-border: rgba(245, 166, 35, 0.55);
 
-  /* 玻璃拟态卡片 */
-  --card-bg: linear-gradient(180deg, rgba(28, 39, 70, 0.55) 0%, rgba(13, 19, 38, 0.62) 100%);
+  /* 玻璃拟态卡片（去掉 backdrop-filter：深色背景下模糊几乎不可见，但代价高，去掉显著提升滚动/首屏性能） */
+  --card-bg: linear-gradient(180deg, rgba(28, 39, 70, 0.62) 0%, rgba(13, 19, 38, 0.72) 100%);
   --card-border: rgba(125, 165, 220, 0.16);
-  --card-blur: blur(10px);
+  --card-blur: none;
   --card-top-light: rgba(160, 200, 240, 0.14);
   --card-hover-glow: 0 18px 44px -14px rgba(0, 0, 0, 0.72), 0 0 30px -6px rgba(245, 166, 35, 0.40), 0 0 10px -2px rgba(242, 180, 92, 0.55);
 }

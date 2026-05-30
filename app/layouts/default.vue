@@ -84,7 +84,7 @@ const snowflakes = [
 .sky-glow {
   position: absolute;
   border-radius: 50%;
-  filter: blur(90px);
+  filter: blur(60px);
   will-change: transform;
 }
 

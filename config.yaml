@@ -34,9 +34,9 @@ hero:
       icon: ri-mail-line
   rightPhoto:
     image: /photo.jpg
-    iconA: ri-code-s-slash-line
-    iconB: ri-palette-line
-    iconC: ri-rocket-2-line
+    iconA: ri-fire-line
+    iconB: ri-cup-line
+    iconC: ri-moon-clear-line
 
 # 页脚配置
 # footer:
