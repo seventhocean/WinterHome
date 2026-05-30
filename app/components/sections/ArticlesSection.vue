@@ -49,7 +49,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 const sectionEl = ref<HTMLElement | null>(null)
 const { reveal } = useScrollReveal()
-onMounted(() => reveal(sectionEl.value))
+
+onMounted(() => nextTick(() => reveal(sectionEl.value)))
+watch(() => props.articles, () => nextTick(() => reveal(sectionEl.value)))
 
 const toArticleUrl = (articleUrl: string): string => {
   if (articleUrl.startsWith('http://') || articleUrl.startsWith('https://') || articleUrl.startsWith('mailto:')) {

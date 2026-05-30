@@ -27,11 +27,13 @@ interface Props {
   events: TimelineEvent[]
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const sectionEl = ref<HTMLElement | null>(null)
 const { reveal } = useScrollReveal()
-onMounted(() => reveal(sectionEl.value))
+
+onMounted(() => nextTick(() => reveal(sectionEl.value)))
+watch(() => props.events, () => nextTick(() => reveal(sectionEl.value)))
 </script>
 
 <style lang="scss" scoped>

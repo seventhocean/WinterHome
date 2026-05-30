@@ -113,7 +113,7 @@ header {
   justify-content: space-between;
   width: 100%;
   height: 3.5rem;
-  max-width: 72rem;
+  max-width: 48rem;
   padding: 0 1.5rem;
   background: var(--header-bg);
   backdrop-filter: blur(40px);
