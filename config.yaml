@@ -80,6 +80,12 @@ sites:
     icon: image-line
     tag: 模板
     screenshot: /sites/summerflower.png
+  - name: Winter·VPS
+    description: 我的主机监控面板
+    url: https://winters.eu.cc
+    icon: computer-line
+    tag: VPS
+    screenshot: /sites/wintervps.png
   - name: Winter·Api
     description: 个人 Token 中转，正在优化中
     url: https://waitsummer.eu.cc
