@@ -26,6 +26,7 @@ export interface SiteItem {
   icon: string
   tag?: string
   screenshot?: string
+  featured?: boolean
 }
 
 /**
@@ -125,6 +126,7 @@ export interface HeroSocialLink {
   name: string
   url: string
   icon: string
+  svg?: string
 }
 
 /**
@@ -145,6 +147,7 @@ export interface HeroConfig {
   descriptions: string[]
   skills: string[]
   primaryAction: HeroAction
+  secondaryAction?: HeroAction
   socialLinks: HeroSocialLink[]
   rightPhoto: RightPhotoConfig
 }

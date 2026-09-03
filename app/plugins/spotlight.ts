@@ -1,10 +1,18 @@
 /**
- * v-spotlight 指令（仅客户端）
+ * v-spotlight 指令
  * 在元素上随鼠标移动写入 --spot-x / --spot-y 坐标，
  * 配合全局 .spotlight::after 的暖色径向渐变，实现「灯光在霜玻璃上游走」的迎光效果。
  * 使用 requestAnimationFrame 节流；触屏无 mousemove，自动不触发。
  */
 export default defineNuxtPlugin((nuxtApp) => {
+  if (import.meta.server) {
+    // SSR 端注册 no-op 指令，避免预渲染时报 getSSRProps 未定义
+    nuxtApp.vueApp.directive('spotlight', {
+      getSSRProps: () => ({})
+    })
+    return
+  }
+
   nuxtApp.vueApp.directive('spotlight', {
     mounted(el: HTMLElement) {
       let raf = 0

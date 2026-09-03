@@ -25,7 +25,7 @@
       </div>
 
       <div v-if="props.hero.skills.length" class="hero-skills">
-        <span class="skills-label">技术栈</span>
+        <span class="skills-label">专注于</span>
         <div class="skills-grid">
           <span v-for="skill in props.hero.skills" :key="skill" class="skill-item">
             {{ skill }}
@@ -54,10 +54,17 @@
         <a :href="props.hero.primaryAction.url" target="_blank" rel="noopener noreferrer" class="hero-btn">
           {{ props.hero.primaryAction.text }}
         </a>
+        <a v-if="props.hero.secondaryAction?.url" :href="props.hero.secondaryAction.url" target="_blank"
+          rel="noopener noreferrer" class="hero-btn hero-btn--ghost">
+          {{ props.hero.secondaryAction.text }}
+        </a>
         <div class="social-links">
           <a v-for="contact in props.hero.socialLinks" :key="contact.name" :href="contact.url" target="_blank"
             :aria-label="contact.name" rel="noopener noreferrer" class="social-link">
-            <i :class="contact.icon" aria-hidden="true"></i>
+            <svg v-if="contact.svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path :d="contact.svg" />
+            </svg>
+            <i v-else :class="contact.icon" aria-hidden="true"></i>
           </a>
         </div>
       </div>
@@ -383,6 +390,8 @@ const props = withDefaults(defineProps<Props>(), {
 .hero-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 0.5rem;
 }
 
@@ -411,6 +420,21 @@ const props = withDefaults(defineProps<Props>(), {
   }
 }
 
+.hero-btn--ghost {
+  border-color: var(--menu-border);
+  background-color: transparent;
+  color: var(--nav-hover);
+  box-shadow: none;
+
+  &:hover {
+    border-color: var(--warm);
+    background-color: var(--header-bg);
+    color: var(--warm);
+    box-shadow: 0 0 16px -5px rgba(245, 166, 35, 0.45);
+    transform: translateY(-1px);
+  }
+}
+
 .social-links {
   display: flex;
   gap: 0.25rem;
@@ -429,6 +453,11 @@ const props = withDefaults(defineProps<Props>(), {
 
   i {
     font-size: 1.5rem;
+  }
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 
   &:hover {

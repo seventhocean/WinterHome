@@ -3,13 +3,15 @@
     <SectionsHeroSection :projects-count="projects.length" :sites-count="sites.length" :articles-count="articlesTotal"
       :hero="hero" :author="siteAuthor" :articles-label="heroArticlesLabel" />
 
-    <SectionsProjectsSection :projects="projects" />
-
     <SectionsSitesSection :sites="sites" />
+
+    <SectionsProjectsSection :projects="projects" />
 
     <SectionsArticlesSection :articles="articles" :blog-url="articlesBlogUrl" :section-title="articlesSectionTitle" :hide-cover="articlesFromRss" />
 
     <SectionsTimelineSection :events="timeline" />
+
+    <SectionsCtaBand :primary="hero.primaryAction" :secondary="hero.secondaryAction" />
   </main>
 </template>
 

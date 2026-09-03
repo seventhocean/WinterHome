@@ -1,25 +1,29 @@
 <template>
   <section id="projects" class="section" ref="sectionEl">
-    <div class="section-header reveal">
-      <h2 class="section-title">精选项目</h2>
-      <p class="section-desc">用心打造的开源作品</p>
+    <div class="section-header projects-header reveal">
+      <div>
+        <h2 class="section-title">精选项目</h2>
+        <p class="section-desc">用心打造的开源作品</p>
+      </div>
+      <a :href="githubUrl" target="_blank" rel="noopener noreferrer" class="header-link">
+        GitHub 主页
+        <i class="ri-arrow-right-up-line"></i>
+      </a>
     </div>
-    <div v-if="projects.length > 0" class="projects-grid reveal-stagger">
-      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" v-spotlight class="project-card reveal spotlight">
-        <div class="project-header">
-          <svg viewBox="0 0 16 16" fill="currentColor" class="project-icon">
-            <path
-              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-          </svg>
-          <span class="project-title">{{ repo.name }}</span>
+
+    <div v-if="projects.length > 0" class="projects-list reveal-stagger">
+      <a v-for="repo in projects" :key="repo.html_url" :href="repo.html_url" target="_blank" v-spotlight
+        class="project-row reveal spotlight">
+        <svg viewBox="0 0 16 16" fill="currentColor" class="row-icon">
+          <path
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+        </svg>
+        <div class="row-main">
+          <span class="row-title">{{ repo.name }}</span>
+          <span class="row-desc">{{ repo.description || '暂无描述' }}</span>
         </div>
-
-        <p class="project-description">{{ repo.description || '暂无描述' }}</p>
-
-        <div class="project-meta">
-          <span v-if="repo.language" class="meta-item">
-            {{ repo.language }}
-          </span>
+        <div class="row-meta">
+          <span v-if="repo.language" class="meta-item meta-lang">{{ repo.language }}</span>
           <span class="meta-item">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
               <path
@@ -36,12 +40,7 @@
             </svg>
             {{ formatNumber(repo.forks_count) }}
           </span>
-          <span class="meta-item">
-            {{ formatRelativeDate(repo.pushed_at) }}
-          </span>
-          <span v-if="repo.license" class="meta-item">
-            {{ repo.license.spdx_id }}
-          </span>
+          <span class="meta-item meta-date">{{ formatRelativeDate(repo.pushed_at) }}</span>
         </div>
       </a>
     </div>
@@ -68,7 +67,7 @@ const { reveal } = useScrollReveal()
 onMounted(() => nextTick(() => reveal(sectionEl.value)))
 watch(() => props.projects, () => nextTick(() => reveal(sectionEl.value)))
 
-const githubUrl = 'https://github.com/flechazo'
+const githubUrl = 'https://github.com/seventhocean'
 
 /**
  * 格式化数字，大于1000的显示为 k 格式
@@ -101,8 +100,14 @@ function formatRelativeDate(dateStr: string): string {
 }
 
 .section-header {
-  margin-bottom: 2.5rem;
-  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.projects-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .section-title {
@@ -117,80 +122,124 @@ function formatRelativeDate(dateStr: string): string {
   color: var(--nav-color);
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+.header-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--nav-color);
+  border: 1px solid var(--menu-border);
+  border-radius: 9999px;
+  background: var(--header-bg);
+  transition: all 200ms ease-out;
+
+  &:hover {
+    border-color: var(--warm-border);
+    color: var(--warm);
+    box-shadow: 0 0 18px -6px rgba(245, 166, 35, 0.42);
+  }
 }
 
-.project-card {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
+/* 工程清单：单容器行式布局 */
+.projects-list {
   border: 1px solid var(--card-border);
   border-radius: 0.75rem;
   background: var(--card-bg);
   backdrop-filter: var(--card-blur);
   -webkit-backdrop-filter: var(--card-blur);
-  text-decoration: none;
   box-shadow: var(--shadow-sm), inset 0 1px 0 0 var(--card-top-light);
-  transition: transform var(--transition-normal), box-shadow 350ms ease-out, border-color 350ms ease-out;
+  overflow: hidden;
+}
+
+.project-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  text-decoration: none;
+  border-bottom: 1px solid var(--menu-border);
+  transition: background 250ms ease-out;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   &:hover {
-    border-color: var(--warm-border);
-    box-shadow: var(--card-hover-glow), inset 0 1px 0 0 var(--card-top-light);
-    transform: translateY(-3px);
+    background: var(--header-bg);
+
+    .row-title {
+      color: var(--warm);
+    }
+
+    .row-icon {
+      color: var(--warm);
+    }
   }
 }
 
-.project-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.project-icon {
-  width: 1rem;
-  height: 1rem;
+.row-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+  flex-shrink: 0;
   color: var(--nav-color);
+  transition: color 250ms ease-out;
 }
 
-.project-title {
-  font-size: 1rem;
+.row-main {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.row-title {
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--nav-hover);
+  transition: color 250ms ease-out;
 }
 
-.project-description {
-  font-size: 0.875rem;
+.row-desc {
+  font-size: 0.8125rem;
   color: var(--nav-color);
-  line-height: 1.5;
-  height: 2.625rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
   overflow: hidden;
-  margin-bottom: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
 }
 
-.project-meta {
+.row-meta {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.875rem;
   font-size: 0.75rem;
   color: var(--toggle-icon);
+  flex-shrink: 0;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  white-space: nowrap;
 
   svg {
     width: 0.875rem;
     height: 0.875rem;
   }
+}
+
+.meta-lang {
+  padding: 0.125rem 0.5rem;
+  background: var(--header-bg);
+  border: 1px solid var(--menu-border);
+  border-radius: 0.25rem;
 }
 
 .projects-redirect {
@@ -244,9 +293,29 @@ function formatRelativeDate(dateStr: string): string {
     font-size: 1.5rem;
   }
 
-  .projects-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .projects-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .project-row {
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .row-main {
+    flex-basis: 100%;
+  }
+
+  .row-desc {
+    white-space: normal;
+    flex-basis: 100%;
+  }
+
+  .row-meta {
+    gap: 0.625rem;
   }
 }
 </style>
