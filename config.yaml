@@ -4,7 +4,7 @@ site:
   description: Winter 的个人主页，！
   keywords: [个人主页, 博客, 技术, 生活, 开发, 云计算, AI]
   author: Winter
-  url: https://winterwait.com
+  url: https://waitwinter.homes
 
 # 首页首屏配置
 hero:
@@ -62,6 +62,12 @@ articles:
 
 # 网站配置
 sites:
+  - name: 冬天AI小店
+    description: 冬天的 AI 小店，精选好物等你来逛
+    url: https://winterai.cc
+    icon: shop-line
+    tag: 小店
+    screenshot: /sites/shop.png
   - name: 冬天·BLOG
     description: 记录生活感悟与知识，等你来探索
     url: https://winterwait.com
