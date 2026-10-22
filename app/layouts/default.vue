@@ -4,21 +4,19 @@
       <div class="sky-stars"></div>
       <div class="sky-glow sky-glow-frost"></div>
       <div class="sky-glow sky-glow-violet"></div>
+      <div class="sky-warm"></div>
 
-      <div class="snow">
-        <span
-          v-for="(f, i) in snowflakes"
-          :key="i"
-          class="snowflake"
-          :style="{
-            left: f.left + '%',
-            '--s': f.size + 'px',
-            '--op': f.op,
-            '--drift': f.drift + 'px',
-            animationDuration: f.dur + 's',
-            animationDelay: f.delay + 's'
-          }"
-        ></span>
+      <div class="snow" :style="{ '--wind': wind }">
+        <span v-for="(f, i) in snowflakes" :key="i" class="snowflake" :style="{
+          left: f.left + '%',
+          '--s': f.size + 'px',
+          '--op': f.op,
+          '--drift': f.drift + 'px',
+          animationDuration: f.dur + 's',
+          animationDelay: f.delay + 's'
+        }">
+          <i class="snowflake-body" :style="{ '--wr': (f.size / 3).toFixed(2) }"></i>
+        </span>
       </div>
     </div>
 
@@ -68,7 +66,69 @@ const snowflakes = [
   { left: 92, size: 1.5, dur: 25, delay: -1,  op: 0.13, drift: -9 },
   { left: 95, size: 1,   dur: 28, delay: -17, op: 0.10, drift: 10 },
   { left: 97, size: 2,   dur: 21, delay: -13, op: 0.20, drift: -15 }
-] as const
+  ] as const
+
+/*
+ * 滚动渐暖：随滚动进度把 --journey-warm（0~1）写到根元素，
+ * 夜空底部的琥珀暖光层据此变亮——「越往下走，越靠近屋里那盏灯」。
+ * rAF 节流，只写一个 CSS 变量，无布局重排。
+ */
+let warmRaf = 0
+const updateJourneyWarm = () => {
+  const doc = document.documentElement
+  const max = doc.scrollHeight - window.innerHeight
+  const progress = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0
+  doc.style.setProperty('--journey-warm', progress.toFixed(3))
+}
+const onScrollWarm = () => {
+  if (warmRaf) return
+  warmRaf = requestAnimationFrame(() => {
+    warmRaf = 0
+    updateJourneyWarm()
+  })
+}
+
+/*
+ * 雪花风偏：rAF 节流读取鼠标水平速度，写入 --wind（-1~1，作用于 .snow 容器）。
+ * 每粒雪按尺寸派生受力系数（--wr，大雪花飘得远），静止 600ms 后缓动归零。
+ * 不引入随机数，系数全部来自固定参数表，SSR / 客户端渲染一致。
+ */
+const wind = ref(0)
+let windRaf = 0
+let lastX: number | null = null
+let windResetTimer: ReturnType<typeof setTimeout> | null = null
+
+const onWindMove = (e: MouseEvent) => {
+  if (windRaf) return
+  const x = e.clientX
+  windRaf = requestAnimationFrame(() => {
+    windRaf = 0
+    if (lastX !== null) {
+      const target = Math.max(-1, Math.min(1, (x - lastX) / 40))
+      wind.value = Number(target.toFixed(3))
+    }
+    lastX = x
+  })
+  if (windResetTimer) clearTimeout(windResetTimer)
+  windResetTimer = setTimeout(() => {
+    wind.value = 0
+    lastX = null
+  }, 600)
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', onScrollWarm, { passive: true })
+  window.addEventListener('mousemove', onWindMove, { passive: true })
+  updateJourneyWarm()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', onScrollWarm)
+  window.removeEventListener('mousemove', onWindMove)
+  if (warmRaf) cancelAnimationFrame(warmRaf)
+  if (windRaf) cancelAnimationFrame(windRaf)
+  if (windResetTimer) clearTimeout(windResetTimer)
+})
 </script>
 
 <style lang="scss" scoped>
@@ -126,6 +186,19 @@ const snowflakes = [
   animation: drift-reverse 30s ease-in-out infinite;
 }
 
+/* 滚动渐暖：屋内灯光透出的琥珀暖意，透明度由 --journey-warm（滚动进度）驱动 */
+.sky-warm {
+  position: absolute;
+  inset: 0;
+  opacity: calc(var(--journey-warm, 0) * 0.5);
+  background: radial-gradient(85% 65% at 50% 108%,
+      rgba(245, 166, 35, 0.32) 0%,
+      rgba(245, 166, 35, 0.1) 45%,
+      transparent 75%);
+  transition: opacity 200ms linear;
+  pointer-events: none;
+}
+
 /* 星点：稀疏、极慢闪烁，营造静谧夜空 */
 .sky-stars {
   position: absolute;
@@ -148,7 +221,7 @@ const snowflakes = [
   animation: twinkle 7s ease-in-out infinite;
 }
 
-/* 极简飘雪 */
+/* 极简飘雪：外层负责下落动画，内层负责风力偏移（两层分离，风力变化不打断下落） */
 .snow {
   position: absolute;
   inset: 0;
@@ -158,15 +231,22 @@ const snowflakes = [
 .snowflake {
   position: absolute;
   top: -10px;
-  width: var(--s);
-  height: var(--s);
-  border-radius: 50%;
-  background: var(--snow-color);
   opacity: 0;
   will-change: transform;
   animation-name: snowfall;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+
+.snowflake-body {
+  display: block;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--snow-color);
+  transform: translateX(calc(var(--wind, 0) * var(--wr, 1) * 26px));
+  transition: transform 800ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
 }
 
 @keyframes snowfall {

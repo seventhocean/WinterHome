@@ -20,6 +20,9 @@ dist
 # Docker runtime data
 public/uploads/
 
+# 图片中转 / 设计参考（本地临时目录）
+99-图片中转/
+
 # 编辑器
 .vscode/*
 !.vscode/extensions.json

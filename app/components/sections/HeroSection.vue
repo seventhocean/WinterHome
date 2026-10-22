@@ -12,7 +12,9 @@
     <div class="hero-content">
       <div class="hero-badge">
         <span class="badge-dot"></span>
-        <span class="badge-text">{{ props.hero.badgeText }}</span>
+        <Transition name="badge-swap" mode="out-in">
+          <span :key="badgeText" class="badge-text">{{ badgeText }}</span>
+        </Transition>
       </div>
 
       <div class="hero-intro">
@@ -72,11 +74,22 @@
 
     <div class="hero-visual">
       <div class="photo-container">
-        <div class="photo-frame">
-          <img :src="props.hero.rightPhoto.image" alt="站长形象" loading="eager" class="photo-image" />
+        <div class="window-unit">
+          <div class="casing-inner">
+            <div class="photo-frame window-frame">
+              <img :src="props.hero.rightPhoto.image" alt="站长形象" loading="eager" class="photo-image" />
+              <div class="window-cast" aria-hidden="true"></div>
+              <div class="window-glow" aria-hidden="true"></div>
+              <div class="window-lining" aria-hidden="true"></div>
+              <div class="window-muntin window-muntin-v" aria-hidden="true"></div>
+              <div class="window-muntin window-muntin-h" aria-hidden="true"></div>
+              <div class="window-frost" aria-hidden="true"></div>
+              <div class="window-reflection" aria-hidden="true"></div>
+            </div>
+          </div>
         </div>
-        <div class="photo-decoration photo-decoration-1"></div>
-        <div class="photo-decoration photo-decoration-2"></div>
+        <div class="window-light-pool" aria-hidden="true"></div>
+        <div class="window-sill" aria-hidden="true"></div>
         <div v-if="props.hero.rightPhoto.iconA" class="photo-float" :class="`photo-float-1`">
           <i :class="props.hero.rightPhoto.iconA"></i>
         </div>
@@ -122,6 +135,21 @@ const props = withDefaults(defineProps<Props>(), {
       iconC: ''
     }
   })
+})
+
+/* 时刻感知徽章：首屏先显示站点文案，挂载后淡入实时时间问候 */
+const { timeText } = useTimeGreeting()
+const timeReady = ref(false)
+
+const badgeText = computed(() => {
+  if (timeReady.value && timeText.value) return timeText.value
+  return props.hero.badgeText
+})
+
+onMounted(() => {
+  window.setTimeout(() => {
+    timeReady.value = true
+  }, 1400)
 })
 </script>
 
@@ -280,6 +308,22 @@ const props = withDefaults(defineProps<Props>(), {
 
 .badge-text {
   letter-spacing: 0.02em;
+}
+
+/* 徽章文案切换：站点文案 ↔ 实时时间问候 */
+.badge-swap-enter-active,
+.badge-swap-leave-active {
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+.badge-swap-enter-from {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.badge-swap-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
 }
 
 .hero-intro {
@@ -482,14 +526,148 @@ const props = withDefaults(defineProps<Props>(), {
   max-width: 28rem;
 }
 
+/* 实体窗第一层：窗套（外框），斜面渐变模拟木质模具的受光 */
+.window-unit {
+  position: relative;
+  z-index: 5;
+  padding: 14px;
+  border-radius: 8px;
+  background: linear-gradient(155deg, #2b3145 0%, #171c2c 38%, #0d1120 100%);
+  box-shadow:
+    0 0 0 1px rgba(148, 176, 216, 0.14),
+    inset 0 1px 0 rgba(168, 196, 232, 0.22),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.55),
+    inset 2px 0 4px rgba(0, 0, 0, 0.3),
+    0 26px 54px -18px rgba(0, 0, 0, 0.68),
+    0 0 90px -6px rgba(245, 166, 35, 0.26);
+}
+
+/* 实体窗第二层：线脚（窗套与玻璃之间的台阶），上缘受光、内圈被灯光染暖 */
+.casing-inner {
+  padding: 7px;
+  border-radius: 4px;
+  background: linear-gradient(155deg, #1b2133 0%, #0e1322 60%, #0a0e1a 100%);
+  box-shadow:
+    inset 0 2px 5px rgba(0, 0, 0, 0.65),
+    inset 0 -1px 0 rgba(150, 180, 220, 0.1),
+    inset 0 0 14px rgba(245, 166, 35, 0.1);
+}
+
+/* 实体窗第三层：玻璃（照片），尺寸/裁切不变 */
 .photo-frame {
   position: relative;
   z-index: 5;
-  border-radius: 1.5rem;
+  border-radius: 2px;
   overflow: hidden;
+}
+
+/* 窗框叙事：照片是一扇深夜亮着灯的窗 */
+
+/* 素描照片保持干净垫底 = 深夜亮着灯的窗；暗角收边 + 轻微暖罩，中心不受影响 */
+.window-cast {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 100% at 50% 45%, transparent 55%, rgba(10, 14, 26, 0.2) 100%),
+    linear-gradient(180deg, rgba(245, 166, 35, 0.06) 0%, rgba(245, 166, 35, 0.03) 100%);
+}
+
+.window-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(58% 46% at 50% 62%, rgba(245, 166, 35, 0.26) 0%, transparent 74%);
+  animation: lamp-breathe 9s ease-in-out infinite;
+}
+
+/* 暖色内衬：独立 overlay，避免被 img 内容覆盖 */
+.window-lining {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border: 1px solid rgba(245, 166, 35, 0.42);
+}
+
+/* 窗棂：深色窗芯 + 暖色棱边，并在玻璃上投下影子 */
+.window-muntin {
+  position: absolute;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(135deg, #1e2436 0%, #0f1322 70%);
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    0 1px 3px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(245, 166, 35, 0.2);
+}
+
+/* 三分线偏置：人脸完整落在右上大格玻璃内 */
+.window-muntin-v {
+  top: 0;
+  bottom: 0;
+  left: 30%;
+  width: 6px;
+  transform: translateX(-50%);
+}
+
+.window-muntin-h {
+  left: 0;
+  right: 0;
+  top: 69%;
+  height: 6px;
+  transform: translateY(-50%);
+}
+
+/* 霜花：冷灰蓝调，在亮玻璃上可见 */
+.window-frost {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    radial-gradient(46% 34% at 0% 0%, rgba(168, 196, 230, 0.38) 0%, rgba(190, 214, 240, 0.12) 45%, transparent 100%),
+    radial-gradient(40% 30% at 100% 0%, rgba(168, 196, 230, 0.3) 0%, transparent 100%),
+    radial-gradient(48% 36% at 0% 100%, rgba(168, 196, 230, 0.32) 0%, transparent 100%),
+    radial-gradient(42% 32% at 100% 100%, rgba(168, 196, 230, 0.36) 0%, transparent 100%);
+}
+
+/* 反光：暗+亮双色斜带，亮窗上的玻璃反光形态 */
+.window-reflection {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: linear-gradient(115deg,
+      transparent 30%,
+      rgba(24, 36, 64, 0.1) 38%,
+      rgba(255, 255, 255, 0.16) 43%,
+      rgba(24, 36, 64, 0.06) 48%,
+      transparent 56%);
+}
+
+/* 灯光呼吸：9s 周期内偶尔极轻微变暗再回，像屋里有人走动挡了下灯 */
+@keyframes lamp-breathe {
+
+  0%,
+  81%,
+  93%,
+  100% {
+    opacity: 1;
+  }
+
+  84% {
+    opacity: 0.68;
+  }
+
+  87% {
+    opacity: 0.92;
+  }
+
+  90% {
+    opacity: 0.76;
+  }
 }
 
 .photo-image {
@@ -499,28 +677,32 @@ const props = withDefaults(defineProps<Props>(), {
   display: block;
 }
 
-.photo-decoration {
+/* 窗台：承接窗内灯光的实体收尾，与窗套同族材质 */
+.window-sill {
   position: absolute;
-  border-radius: 1.5rem;
+  left: -1.25rem;
+  right: -1.25rem;
+  bottom: -1.25rem;
+  height: 1.125rem;
+  border-radius: 0.25rem;
+  background: linear-gradient(180deg, #31374c 0%, #171c2c 55%, #0d1120 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(245, 166, 35, 0.35),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5),
+    0 10px 24px -10px rgba(0, 0, 0, 0.6);
+  z-index: 4;
+}
+
+/* 墙面光晕：窗内灯光洒在墙上的一片暖光 */
+.window-light-pool {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: -3.75rem;
+  height: 3rem;
+  background: radial-gradient(50% 100% at 50% 0%, rgba(245, 166, 35, 0.16) 0%, transparent 75%);
+  filter: blur(8px);
   pointer-events: none;
-}
-
-.photo-decoration-1 {
-  top: -1rem;
-  left: -1rem;
-  right: 1rem;
-  bottom: 1rem;
-  border: 2px dashed var(--menu-border);
-  z-index: 1;
-}
-
-.photo-decoration-2 {
-  top: 1rem;
-  left: 1rem;
-  right: -1.5rem;
-  bottom: -1.5rem;
-  background: var(--header-bg);
-  border: 1px solid var(--menu-border);
   z-index: 0;
 }
 
@@ -611,8 +793,62 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 @media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+  }
+
   .hero-visual {
-    display: none;
+    margin-top: 0.5rem;
+  }
+
+  /* 移动端窗户：整体缩放，保持实体结构 */
+  .photo-container {
+    max-width: 19rem;
+  }
+
+  .window-unit {
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow:
+      0 0 0 1px rgba(148, 176, 216, 0.14),
+      inset 0 1px 0 rgba(168, 196, 232, 0.22),
+      inset 0 -2px 6px rgba(0, 0, 0, 0.55),
+      inset 2px 0 4px rgba(0, 0, 0, 0.3),
+      0 20px 40px -16px rgba(0, 0, 0, 0.66),
+      0 0 60px -8px rgba(245, 166, 35, 0.24);
+  }
+
+  .casing-inner {
+    padding: 5px;
+  }
+
+  .window-sill {
+    left: -0.75rem;
+    right: -0.75rem;
+    bottom: -0.9375rem;
+    height: 0.875rem;
+  }
+
+  .window-light-pool {
+    bottom: -2.5rem;
+    height: 2.25rem;
+  }
+
+  .photo-float {
+    width: 2.375rem;
+    height: 2.375rem;
+
+    i {
+      font-size: 1rem;
+    }
+  }
+
+  .photo-float-1 {
+    right: -0.25rem;
+  }
+
+  .photo-float-2 {
+    left: -0.25rem;
   }
 
   .hero-name {
@@ -646,6 +882,10 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 @media (max-width: 480px) {
+  .photo-container {
+    max-width: 16.5rem;
+  }
+
   .hero-name {
     font-size: 2.25rem;
   }
